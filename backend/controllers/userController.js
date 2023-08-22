@@ -1,7 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-
 const User = require("../models/userModel");
 
 //Generate Token
@@ -74,8 +73,20 @@ const loginUser = asyncHandler(async (req, res) => {
     throw new Error("Invalid Credentials");
   }
 });
+// @desc   Get current user
+// @route  /api/users/me
+// @access Private
+const getMe = asyncHandler(async (req, res) => {
+  const user = {
+    id: req.user._id,
+    email: req.user.email,
+    name: req.user.name,
+  };
+  res.status(200).json(req.user);
+});
 
 module.exports = {
   registerUser,
   loginUser,
+  getMe,
 };

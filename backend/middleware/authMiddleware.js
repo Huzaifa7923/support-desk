@@ -1,7 +1,7 @@
 //routes only for authorised user
 const jwt = require("jsonwebtoken");
 const asyncHandler = require("express-async-handler");
-const user = require("../models/userModel");
+const User = require("../models/userModel");
 
 const protect = asyncHandler(async (req, res, next) => {
   let token;
@@ -18,17 +18,21 @@ const protect = asyncHandler(async (req, res, next) => {
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
       //get user from token
-      req.user = await User.findById(decoded.id).select(-password);
+      req.user = await User.findById(decoded.id).select("-password");
       if (!req.user) {
         res.status(401);
-        throw new Error("Not authirised");
+        throw new Error("Not authorized");
       }
       next();
     } catch (error) {
       console.log(error);
       res.status(401);
-      throw new Error("Not authorised");
+      throw new Error("Not authorized");
     }
+  }
+  if (!token) {
+    res.status(401);
+    throw new Error("Not Authorized");
   }
 });
 module.exports = { protect };

@@ -12,11 +12,12 @@ app.use(express.urlencoded({ extended: false }));
 
 app.get("/", (req, res) => {
   //   res.send("Hello");
-  res.status(200).json({ messege: "gnerngijern" });
+  res.status(200).json({ message: "gnerngijern" });
 });
 
 // middlewares
 app.use("/api/users", require("./routes/userRoutes"));
+app.use("/api/tickets", require("./routes/ticketRoutes"));
 app.use(errorHandler);
 
 app.listen(PORT, () => console.log(`server started on port ${PORT}`));

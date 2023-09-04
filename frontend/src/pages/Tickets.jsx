@@ -1,6 +1,4 @@
 import React, { useEffect } from "react";
-import { useState } from "react";
-import { useReducer } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getTickets, reset } from "../features/tickets/ticketSlice";
 import BackButton from "../components/BackButton";
@@ -11,8 +9,8 @@ function Tickets() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    //cleanup function
     return () => {
-      //cleanup function
       if (isSuccess) {
         dispatch(reset());
       }
@@ -27,8 +25,8 @@ function Tickets() {
     <>
       <BackButton url="/"></BackButton>
       <h1>Tickets</h1>
-      <div className="">
-        <div>
+      <div className="tickets">
+        <div className="ticket-headings">
           <div>Date</div>
           <div>Product</div>
           <div>Status</div>

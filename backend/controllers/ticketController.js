@@ -39,10 +39,6 @@ const getTicket = asyncHandler(async (req, res) => {
     throw new Error("Not Authorised");
   }
   res.status(200).json(ticket);
-  // sending without curly braces : res will look like this
-  //{
-  // Ticket object
-  // }
 });
 
 // @desc delete ticket
@@ -82,9 +78,15 @@ const updateTicket = asyncHandler(async (req, res) => {
     res.status(401);
     throw new Error("Not Authorised");
   }
-  const updatedTicket = findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-  });
+  const updatedTicket = await Ticket.findByIdAndUpdate(
+    req.params.id,
+    req.body,
+    {
+      new: true,
+    }
+  );
+  console.log("in backend");
+  console.log(updatedTicket);
   res.status(200).json(updatedTicket);
 });
 

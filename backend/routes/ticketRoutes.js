@@ -9,6 +9,11 @@ const {
 } = require("../controllers/ticketController");
 const { protect } = require("../middleware/authMiddleware");
 
+// @api/tickets/:ticketId/notes -> merge params in route
+//Re-route into note router
+const noteRouter = require("./noteRoutes");
+router.use("/:ticketId/notes", noteRouter);
+
 // router.get("/", protect, getTickets);
 // router.post("/", protect, createTicket);
 router.route("/").get(protect, getTickets).post(protect, createTicket);

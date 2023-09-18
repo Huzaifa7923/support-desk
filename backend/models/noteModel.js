@@ -9,12 +9,12 @@ const noteSchema = mongoose.Schema(
     },
     ticket: {
       type: mongoose.Schema.Types.ObjectId,
-      req: true,
+      required: true,
       ref: "Ticket",
     },
     text: {
       type: String,
-      req: [true, "Enter text"],
+      required: [true, "Enter text"],
     },
     isStaff: {
       type: Boolean,
@@ -28,4 +28,4 @@ const noteSchema = mongoose.Schema(
     timestamps: true,
   }
 );
-mongoose.exports = mongoose.model("Note", noteSchema);
+module.exports = mongoose.model("Note", noteSchema);

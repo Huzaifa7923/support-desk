@@ -44,8 +44,8 @@ const closeTicket = async (ticketId, token) => {
     { status: "closed" },
     config
   );
-  console.log("in service");
-  console.log(response.data);
+  // console.log("in service");
+  // console.log(response.data);
   return response.data;
 };
 

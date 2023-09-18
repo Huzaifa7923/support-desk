@@ -8,13 +8,13 @@ const Ticket = require("../models/ticketModel");
 // @route   GET /api/tickets/:ticketId/notes
 // @access  Private
 const getNotes = asyncHandler(async (req, res) => {
-  const ticket = await Ticket.findById(req.params.id);
+  const ticket = await Ticket.findById(req.params.ticketId);
 
   if (ticket.user.toString() !== req.user.id) {
     res.status(401);
     throw new Error("User not authorized");
   }
-  const notes = await Note.find({ ticket: req.params.Id });
+  const notes = await Note.find({ ticket: req.params.ticketId });
   res.status(200).json(notes);
 });
 
@@ -22,7 +22,7 @@ const getNotes = asyncHandler(async (req, res) => {
 // @route   POST /api/tickets/:ticketId/notes
 // @access  Private
 const addNote = asyncHandler(async (req, res) => {
-  const ticket = await Ticket.findById(req.params.id);
+  const ticket = await Ticket.findById(req.params.ticketId);
   if (ticket.user.toString() !== req.user.id) {
     res.status(401);
     throw new Error("User not authorized");
@@ -30,7 +30,7 @@ const addNote = asyncHandler(async (req, res) => {
   const note = await Note.create({
     text: req.body.text,
     isStaff: false,
-    ticket: req.params.id,
+    ticket: req.params.ticketId,
     user: req.user.id,
   });
   res.status(200).json(note);
